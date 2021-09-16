@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p>Im template</p>
+    {% for movie in movies.results %}
+        {{ movie.title }} <br>
+        {{ movie.overview }} <br>
+        {{ movie.vote_average }} <br>
+        {{ movie.release_date }} <br>
+        <hr>
+    {% endfor %}
+</body>
+</html>
