@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Movies</title>
 </head>
-<body>
-    <p>Im template</p>
+<header>
+    {% extends "catalog/layout.html" %}
+</header>
+{% block content %}
+    <body>
+    <h1>Популярные</h1>
     {% for movie in movies.results %}
         {{ movie.title }} <br>
         {{ movie.overview }} <br>
@@ -13,5 +17,6 @@
         {{ movie.release_date }} <br>
         <hr>
     {% endfor %}
-</body>
+    </body>
+{% endblock %}
 </html>

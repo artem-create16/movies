@@ -21,5 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('catalog/', include('catalog.urls')),
     path('', views.index, name='index'),
+    path('top/', views.top, name='top'),
+    path('now/', views.now_playing, name='now'),
     ]
 
