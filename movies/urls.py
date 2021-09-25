@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
 from catalog import views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('catalog/', include('catalog.urls')),
@@ -25,3 +27,4 @@ urlpatterns = [
     path('now/', views.now_playing, name='now'),
     ]
 
+urlpatterns += staticfiles_urlpatterns()
