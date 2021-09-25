@@ -65,3 +65,8 @@ h2 {
     /* Отступ слева в браузере Firefox, Safari, Chrome */
     margin-top: 0
 }
+
+.search label{
+    color: white;
+    font-size: 20px;
+}

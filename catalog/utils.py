@@ -16,9 +16,16 @@ class Movies(BaseModel):
     results: List[Results]
 
 
-def get_popular_movies(section):
+def get_movies(section):
     response = requests.get(
         f'https://api.themoviedb.org/3/movie/{section}?api_key={API_KEY}&language=ru&page=1'
+    )
+    return parse(response.json())
+
+
+def search_movies(req):
+    response = requests.get(
+        f'https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={req}&language=ru'
     )
     return parse(response.json())
 

@@ -25,6 +25,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('top/', views.top, name='top'),
     path('now/', views.now_playing, name='now'),
+    path('search/<slug:movie>', views.show_find_movies, name='search'),
     ]
 
 urlpatterns += staticfiles_urlpatterns()
