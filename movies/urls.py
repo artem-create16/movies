@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.views.generic import RedirectView
 from catalog import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -22,10 +22,12 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('catalog/', include('catalog.urls')),
-    path('', views.index, name='index'),
-    path('top/', views.top, name='top'),
-    path('now/', views.now_playing, name='now'),
-    path('search/<slug:movie>', views.show_find_movies, name='search'),
+    path('', views.main, name='main'),
+    path('popular/<slug:page>', views.popular, name='popular'),
+    path('top/<slug:page>', views.top, name='top'),
+    path('now/<slug:page>', views.now_playing, name='now'),
+    path('movie/<slug:id>', views.show_certain_movie, name='movie'),
+    path('search/<movie>', views.show_find_movies, name='search'),
     ]
 
 urlpatterns += staticfiles_urlpatterns()

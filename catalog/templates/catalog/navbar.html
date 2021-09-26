@@ -3,13 +3,13 @@
         <div class="menu">
             <ul>
                 <li>
-                    <a href="{% url 'index' %}">Популярные</a>
+                    <a href="{% url 'popular' 1 %}">Популярные</a>
                 </li>
                 <li>
-                    <a href="{% url 'now' %}">Смотрят сейчас</a>
+                    <a href="{% url 'now' 1 %}">Смотрят сейчас</a>
                 </li>
                 <li>
-                    <a href="{% url 'top' %}">Топ рейтинга</a>
+                    <a href="{% url 'top' 1 %}">Топ рейтинга</a>
                 </li>
             </ul>
         </div>
@@ -17,7 +17,8 @@
             <h1>Смотри фильмы и сериалы бесплатно!</h1>
             <h2></h2>
         </div>
-        <form action="" method="get">
+        <form action="" method="POST">
+            {% csrf_token %}
             <div class="search">
                 {{ form.as_p }}
                 <input type="submit" value="Submit">

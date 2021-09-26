@@ -8,14 +8,21 @@
     {% extends "catalog/layout.html" %}
 </header>
 {% block content %}
-<body>
-<h1>Сейчас смотрят</h1>
-        {% for movie in movies.results %}
-            {{ movie.title }} <br>
-            {{ movie.overview }} <br>
-            {{ movie.vote_average }} <br>
-            {{ movie.release_date }} <br>
-            <hr>
-        {% endfor %}
-</body>
+    <body>
+    <h1>Сейчас смотрят</h1>
+    {% for movie in movies %}
+        {{ movie.title }} <br>
+        {{ movie.overview }} <br>
+        {{ movie.vote_average }} <br>
+        {{ movie.release_date }} <br>
+        <hr>
+    {% endfor %}
+    <div id="app" class="container">
+        <ul class="page">
+            {% for page in pages %}
+                <li class="page__numbers"><a href="{% url 'now' page %}">{{ page }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    </body>
 {% endblock %}

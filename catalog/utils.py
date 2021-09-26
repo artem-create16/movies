@@ -9,6 +9,7 @@ class Results(BaseModel):
     overview: str
     vote_average: str
     release_date: str
+    id: str
 
 
 class Movies(BaseModel):
@@ -16,9 +17,9 @@ class Movies(BaseModel):
     results: List[Results]
 
 
-def get_movies(section):
+def get_movies(section, page):
     response = requests.get(
-        f'https://api.themoviedb.org/3/movie/{section}?api_key={API_KEY}&language=ru&page=1'
+        f'https://api.themoviedb.org/3/movie/{section}?api_key={API_KEY}&language=ru&page={page}'
     )
     return parse(response.json())
 
@@ -30,6 +31,19 @@ def search_movies(req):
     return parse(response.json())
 
 
+def get_certain_movie(movie_id):
+    response = requests.get(
+        f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={API_KEY}&language=ru'
+    )
+    return parse_certain(response.json())
+
+
 def parse(json):
     movie = Movies(**json)
+    print(movie)
+    return movie.results
+
+
+def parse_certain(json):
+    movie = Results(**json)
     return movie
