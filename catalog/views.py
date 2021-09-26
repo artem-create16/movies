@@ -1,10 +1,8 @@
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.template import loader
+from django.shortcuts import redirect
+from django.shortcuts import render
+
 from catalog.utils import get_movies, search_movies, get_certain_movie
 from .forms import FindMovies
-from django.core.paginator import Paginator
-from django.shortcuts import render
 
 
 def main(request):
@@ -13,7 +11,6 @@ def main(request):
         form = FindMovies(request.POST)
         if form.is_valid() and form.cleaned_data['movies'] != '':
             movie = form.cleaned_data.get('movies')
-            print("VALUE --->", movie)
             return redirect('search', movie)
     return render(request, 'catalog/main.html', {'form': form})
 

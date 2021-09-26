@@ -11,7 +11,7 @@
     <body>
     <h1>Топ рейтинга</h1>
     {% for movie in movies %}
-        {{ movie.title }} <br>
+        <a href="{% url 'movie' movie.id %}">{{ movie.title }}</a> <br>
         {{ movie.overview }} <br>
         {{ movie.vote_average }} <br>
         {{ movie.release_date }} <br>
