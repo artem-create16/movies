@@ -26,7 +26,7 @@ urlpatterns = [
     path('popular/<slug:page>', views.popular, name='popular'),
     path('top/<slug:page>', views.top, name='top'),
     path('now/<slug:page>', views.now_playing, name='now'),
-    path('movie/<slug:id>', views.show_certain_movie, name='movie'),
+    path('movie/<slug:id>/<title>/<year>', views.show_certain_movie, name='movie'),
     path('search/<movie>', views.show_find_movies, name='search'),
     ]
 

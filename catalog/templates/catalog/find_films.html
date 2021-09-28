@@ -1,23 +1,20 @@
+{% extends "catalog/layout.html" %}
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<header>
-    {% extends "catalog/layout.html" %}
-</header>
-{% block content %}
-<body>
-<h1>По вашему запросу</h1>
-        {% for movie in movies %}
-            <a href="{% url 'movie' movie.id %}">{{ movie.title }}</a> <br>
-            {{ movie.overview }} <br>
-            {{ movie.vote_average }} <br>
-            {{ movie.release_date }} <br>
-            <hr>
-        {% endfor %}
-</body>
-{% endblock content %}
+{% block pagecontent %}
+    <body>
+    <h1>По вашему запросу</h1>
+    {% for movie in movies %}
+        <a href="{% url 'movie' movie.id movie.title movie.release_date %}">{{ movie.title }}</a> <br>
+        {{ movie.overview }} <br>
+        {{ movie.vote_average }} <br>
+        {{ movie.release_date }} <br>
+        <hr>
+    {% endfor %}
+    </body>
+{% endblock %}
 </html>

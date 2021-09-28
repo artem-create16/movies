@@ -1,13 +1,33 @@
+{% extends "catalog/layout.html" %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-        <a href="{% url 'movie' movie.id %}">{{ movie.title }}</a> <br>
+{% block pagecontent %}
+    <body>
+    <div class="wrap">
+        <a href="{% url 'movie' movie.id movie.title movie.release_date %}">{{ movie.title }}</a> <br>
         {{ movie.overview }} <br>
         {{ movie.vote_average }} <br>
         {{ movie.release_date }} <br>
-</body>
+        <h1>По запросу "{{ movie.title }}" были найдены фильмы:</h1>
+        {% for i in video %}
+            {{ i.title }} <br>
+            {{ i.material_data.description }}
+            <div class="video">
+                <iframe src={{ i.link }} width="610px" height="370px" frameborder="0" allowfullscreen
+                        allow="autoplay *; fullscreen *"></iframe>
+            </div>
+            <hr>
+        {% endfor %}
+
+        <h3>Нет подходящего фильма?</h3>
+        <a href="https://www.google.com/?q=фильм%20{{ movie.title }}%20смотреть%20онлайн%20бесплатно&ia=web">Попробуй найти в
+            интернете!
+            Кликай сюда!</a>
+    </div>
+    </body>
+{% endblock %}
 </html>

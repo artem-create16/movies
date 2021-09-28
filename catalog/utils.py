@@ -1,7 +1,7 @@
 import requests
-from movies.settings import API_KEY
+from movies.settings import API_KEY, API_KEY_VIDEO
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 
 class Results(BaseModel):
@@ -15,6 +15,16 @@ class Results(BaseModel):
 class Movies(BaseModel):
     page: str
     results: List[Results]
+
+
+class ResultsVideo(BaseModel):
+    title: str
+    link: str
+    material_data: Optional[dict] = None
+
+
+class Video(BaseModel):
+    results: List[ResultsVideo]
 
 
 def get_movies(section, page):
@@ -38,12 +48,25 @@ def get_certain_movie(movie_id):
     return parse_certain(response.json())
 
 
+def get_video(title, year):
+    year = year.split('-')[0]
+    title = '%20'.join(title.split())
+    response = requests.get(
+        f'https://kodikapi.com/search?token={API_KEY_VIDEO}&title={title}&with_material_data=true&limit=10'
+    )
+    return parse_video(response.json())
+
+
 def parse(json):
     movie = Movies(**json)
-    print(movie)
     return movie.results
 
 
 def parse_certain(json):
     movie = Results(**json)
     return movie
+
+
+def parse_video(json):
+    video = Video(**json)
+    return video.results

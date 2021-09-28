@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 from django.shortcuts import render
 
-from catalog.utils import get_movies, search_movies, get_certain_movie
+from catalog.utils import get_movies, search_movies, get_certain_movie, get_video
 from .forms import FindMovies
 
 
@@ -32,9 +32,8 @@ def now_playing(request, page=1):
 
 
 def show_find_movies(request, movie):
-    print("MOVIE --->", movie)
     return render(request, 'catalog/find_films.html', {'movies': search_movies(movie)})
 
 
-def show_certain_movie(request, id):
-    return render(request, 'catalog/certain_movie.html', {'movie': get_certain_movie(id)})
+def show_certain_movie(request, id, title, year):
+    return render(request, 'catalog/certain_movie.html', {'movie': get_certain_movie(id), 'video': get_video(title, year)})
