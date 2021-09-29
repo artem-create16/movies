@@ -59,7 +59,7 @@ def get_video(title, year):
 
 def parse(json):
     movie = Movies(**json)
-    return movie.results
+    return movie
 
 
 def parse_certain(json):

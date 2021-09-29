@@ -36,4 +36,5 @@ def show_find_movies(request, movie):
 
 
 def show_certain_movie(request, id, title, year):
-    return render(request, 'catalog/certain_movie.html', {'movie': get_certain_movie(id), 'video': get_video(title, year)})
+    return render(request, 'catalog/certain_movie.html', {'movie': get_certain_movie(id),
+                                                          'video': get_video(title, year)})

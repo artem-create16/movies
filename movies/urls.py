@@ -23,11 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('catalog/', include('catalog.urls')),
     path('', views.main, name='main'),
-    path('popular/<slug:page>', views.popular, name='popular'),
-    path('top/<slug:page>', views.top, name='top'),
-    path('now/<slug:page>', views.now_playing, name='now'),
-    path('movie/<slug:id>/<title>/<year>', views.show_certain_movie, name='movie'),
-    path('search/<movie>', views.show_find_movies, name='search'),
+    path('popular/<slug:page>/', views.popular, name='popular'),
+    path('top/<slug:page>/', views.top, name='top'),
+    path('now/<slug:page>/', views.now_playing, name='now'),
+    path('movie/<slug:id>/<title>/<year>/', views.show_certain_movie, name='movie'),
+    path('search/<movie>/', views.show_find_movies, name='search'),
     ]
 
 urlpatterns += staticfiles_urlpatterns()
