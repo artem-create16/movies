@@ -24,7 +24,7 @@ API_KEY_VIDEO = os.getenv('API_KEY_VIDEO')
 SECRET_KEY = 'django-insecure-pkt=&+gijy74#24*ap$0vm^8i8%vun0oxuawau+l-!nmh+qmwb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['movies-movies.herokuapp.com',
                  '127.0.0.1']

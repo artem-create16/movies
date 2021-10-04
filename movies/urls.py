@@ -19,6 +19,7 @@ from django.views.generic import RedirectView
 from catalog import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('catalog/', include('catalog.urls')),
@@ -30,4 +31,7 @@ urlpatterns = [
     path('search/<movie>/', views.show_find_movies, name='search'),
     ]
 
+
+handler404 = 'catalog.views.custom_error_404'
 urlpatterns += staticfiles_urlpatterns()
+
