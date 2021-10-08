@@ -1,9 +1,12 @@
 from django.test import TestCase
 from catalog.forms import FindMovies
-from catalog.utils import get_movies, search_movies, get_certain_movie, get_video
+from catalog.utils import get_movies, parse_video, parse_certain, parse_search_movies, parse_movies, search_movies, \
+    get_certain_movie, get_video
 import requests_mock
 from unittest.mock import patch
 from catalog.utils import Movies
+from unittest.mock import patch, Mock
+
 
 class Test(TestCase):
     # def test_check_for_a_non_existent_link(self):
@@ -43,10 +46,6 @@ class Test(TestCase):
     #     self.assertEqual(response.status_code, 200)
     #     self.assertTemplateUsed(response, 'catalog/find_films.html')
     #
-    # def test_form_find_movies(self):
-    #     form_data = {'something': 'something'}
-    #     form = FindMovies(data=form_data)
-    #     self.assertTrue(form.is_valid())
     #
     # def test_get_movies(self):
     #     movies = get_movies(section='popular', page='1')
@@ -65,15 +64,82 @@ class Test(TestCase):
     #     self.assertTrue(video is not None)
 
     @patch('catalog.utils.requests.get')
-    def test_fuck(self, mock_get):
+    def test_get_movies(self, mock_get):
         mock_get.return_value.status_code = 200
-        mock_get.return_value.json = Movies(page=1, results=[{'title': 'title',
-                                                              'overview': 'overview',
-                                                              'vote_average': 'vote_average',
-                                                              'release_date': 'release_date',
-                                                              'id': 'id'}])
-        response = get_movies('popular', 1)
+        response = get_movies(section='popular', page=1)
         self.assertEqual(response.status_code, 200)
 
+    @patch('catalog.utils.requests.get')
+    def test_get_movies_error(self, mock_get):
+        mock_get.return_value.status_code = 404
+        response = get_movies(
+            section='non_exists',
+            page=1234
+        )
+        self.assertEqual(response.status_code, 404)
 
+    @patch('catalog.utils.requests.get')
+    def test_search_movies(self, mock_get):
+        mock_get.return_value.status_code = 200
+        response = search_movies(req='Москва слезам не верит')
+        self.assertEqual(response.status_code, 200)
 
+    @patch('catalog.utils.requests.get')
+    def test_get_certain_movie(self, mock_get):
+        mock_get.return_value.status_code = 200
+        response = get_certain_movie(movie_id=123)
+        self.assertEqual(response.status_code, 200)
+
+    @patch('catalog.utils.requests.get')
+    def test_get_certain_movie_error(self, mock_get):
+        mock_get.return_value.status_code = 404
+        response = get_certain_movie(movie_id=0)
+        self.assertEqual(response.status_code, 404)
+
+    @patch('catalog.utils.requests.get')
+    def test_get_video(self, mock_get):
+        mock_get.return_value.status_code = 200
+        response = get_video(title='Москва слезам не верит', year='1979')
+        self.assertEqual(response.status_code, 200)
+
+    @patch('catalog.utils.requests.get')
+    def test_parse_movies(self, mock_get):
+        results = {"page": "1", "results": [{"title": "Moscow",
+                                             "overview": "some overview",
+                                             "vote_average": "some vite_average",
+                                             "release_date": "some release_date",
+                                             "id": "some id"}]}
+        mock_get.return_value.json.return_value = results
+        response = parse_movies(section='popular', page=1)
+        self.assertEqual(response, results)
+
+    @patch('catalog.utils.requests.get')
+    def test_parse_search_movies(self, mock_get):
+        results = {"page": "1", "results": [{"title": "Moscow",
+                                             "overview": "some overview",
+                                             "vote_average": "some vite_average",
+                                             "release_date": "some release_date",
+                                             "id": "some id"}]}
+        mock_get.return_value.json.return_value = results
+        response = parse_search_movies(req='Moscow')
+        self.assertEqual(response, results)
+
+    @patch('catalog.utils.requests.get')
+    def test_parse_certain(self, mock_get):
+        results = {"title": "Moscow",
+                   "overview": "some overview",
+                   "vote_average": "some vite_average",
+                   "release_date": "some release_date",
+                   "id": "some id"}
+        mock_get.return_value.json.return_value = results
+        response = parse_certain(movie_id=123)
+        self.assertEqual(response, results)
+
+    @patch('catalog.utils.requests.get')
+    def test_parse_video(self, mock_get):
+        results = {"results": [{"title": "Moscow",
+                                "link": "some link",
+                                'material_data': {}}]}
+        mock_get.return_value.json.return_value = results
+        response = parse_video(title='Moscow', year='1979')
+        self.assertEqual(response, results)

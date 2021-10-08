@@ -58,24 +58,24 @@ def get_video(title, year):
 
 
 def parse_movies(section, page):
-    json = get_movies(section, page).json()
-    movie = Movies(**json)
+    data = get_movies(section, page).json()
+    movie = Movies(**data)
     return movie
 
 
 def parse_search_movies(req):
-    json = search_movies(req).json()
-    movie = Movies(**json)
+    data = search_movies(req).json()
+    movie = Movies(**data)
     return movie
 
 
 def parse_certain(movie_id):
-    json = get_certain_movie(movie_id).json()
-    movie = Results(**json)
+    data = get_certain_movie(movie_id).json()
+    movie = Results(**data)
     return movie
 
 
 def parse_video(title, year):
-    json = get_video(title, year).json()
-    video = Video(**json)
-    return video.results
+    data = get_video(title, year).json()
+    video = Video(**data)
+    return video

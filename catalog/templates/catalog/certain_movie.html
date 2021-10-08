@@ -13,7 +13,7 @@
         {{ movie.vote_average }} <br>
         {{ movie.release_date }} <br>
         <h1>По запросу "{{ movie.title }}" были найдены фильмы:</h1>
-        {% for i in video %}
+        {% for i in video.results %}
             {{ i.title }} <br>
             {{ i.material_data.description }}
             <div class="video">
