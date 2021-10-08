@@ -31,21 +31,21 @@ def get_movies(section, page):
     response = requests.get(
         f'https://api.themoviedb.org/3/movie/{section}?api_key={API_KEY}&language=ru&page={page}'
     )
-    return parse(response.json())
+    return response
 
 
 def search_movies(req):
     response = requests.get(
         f'https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={req}&language=ru'
     )
-    return parse(response.json())
+    return response
 
 
 def get_certain_movie(movie_id):
     response = requests.get(
         f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={API_KEY}&language=ru'
     )
-    return parse_certain(response.json())
+    return response
 
 
 def get_video(title, year):
@@ -54,19 +54,28 @@ def get_video(title, year):
     response = requests.get(
         f'https://kodikapi.com/search?token={API_KEY_VIDEO}&title={title}&with_material_data=true&limit=10'
     )
-    return parse_video(response.json())
+    return response
 
 
-def parse(json):
+def parse_movies(section, page):
+    json = get_movies(section, page).json()
     movie = Movies(**json)
     return movie
 
 
-def parse_certain(json):
+def parse_search_movies(req):
+    json = search_movies(req).json()
+    movie = Movies(**json)
+    return movie
+
+
+def parse_certain(movie_id):
+    json = get_certain_movie(movie_id).json()
     movie = Results(**json)
     return movie
 
 
-def parse_video(json):
+def parse_video(title, year):
+    json = get_video(title, year).json()
     video = Video(**json)
     return video.results

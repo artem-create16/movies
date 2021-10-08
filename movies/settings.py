@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +25,7 @@ API_KEY_VIDEO = os.getenv('API_KEY_VIDEO')
 SECRET_KEY = 'django-insecure-pkt=&+gijy74#24*ap$0vm^8i8%vun0oxuawau+l-!nmh+qmwb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['movies-movies.herokuapp.com',
                  '127.0.0.1']
