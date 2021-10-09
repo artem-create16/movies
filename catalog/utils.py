@@ -1,7 +1,10 @@
-import requests
-from movies.settings import API_KEY, API_KEY_VIDEO
-from pydantic import BaseModel
 from typing import List, Optional
+
+import requests
+from django.http import HttpResponse
+from pydantic import BaseModel
+
+from movies.settings import API_KEY, API_KEY_VIDEO
 
 
 class Results(BaseModel):
@@ -79,3 +82,8 @@ def parse_video(title, year):
     data = get_video(title, year).json()
     video = Video(**data)
     return video
+
+
+def check_pagination(page):
+    if int(page) > 1000:
+        return HttpResponse(status=404)

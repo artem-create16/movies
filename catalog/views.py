@@ -1,14 +1,8 @@
-from django.http import Http404
 from django.shortcuts import redirect
 from django.shortcuts import render
 
-from catalog.utils import parse_video, parse_certain, parse_movies, parse_search_movies
+from catalog.utils import parse_video, parse_certain, parse_movies, parse_search_movies, check_pagination
 from .forms import FindMovies
-
-
-def check_pagination(page):
-    if int(page) > 1000:
-        raise Http404()
 
 
 def main(request):
